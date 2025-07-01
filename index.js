@@ -165,7 +165,25 @@ app.post("/api/import/onetsp", async (req, res) => {
       $("#tagsList li a.tagname").each((i, el) => {
         tags.push($(el).text().trim());
       });
-      recipes.push({ url, title, ingredients, instructions, recipeUrl, tags });
+
+      // Extract cooktime (total time)
+      let cooktime = null;
+      $("#times div").each((i, el) => {
+        const label = $(el).find(".label").text().trim();
+        if (label === "Total") {
+          cooktime = $(el).text().replace("Total", "").trim();
+        }
+      });
+
+      recipes.push({
+        url,
+        title,
+        ingredients,
+        instructions,
+        recipeUrl,
+        tags,
+        cooktime,
+      });
     }
     console.log(
       `Finished fetching all recipes. Returning ${recipes.length} recipes.`
