@@ -98,7 +98,7 @@ app.post("/api/import/onetsp", async (req, res) => {
         },
       });
       const buffer = await resp.buffer();
-      const html = buffer.toString("utf8");
+      const html = buffer.toString("latin1");
       const $ = cheerio.load(html);
       // Extract URLs from div.rows > ul > li > a
       const urls = [];
@@ -132,7 +132,7 @@ app.post("/api/import/onetsp", async (req, res) => {
         },
       });
       const buffer = await resp.buffer();
-      const html = buffer.toString("utf8");
+      const html = buffer.toString("latin1");
       const $ = cheerio.load(html);
       // Extract title
       const title = $("div.page-header h1").text().trim() || null;
